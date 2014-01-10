@@ -1,0 +1,25 @@
+<!doctype html>  
+<html ng-app="insta">
+<head>
+<title>insta search</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js"></script>
+<script src="js/main.js"></script>
+
+</head>
+<body ng-controller="AppController">
+
+	<form class="search-field"> 
+		<input type="text" ng-model="searchKeyword"> 
+		<input type="submit" value="Find"> 
+		<span class="search-message">photos of {{searchKeyword}}</span> 
+	</form>
+	
+	<ul>
+		<li ng-repeat="photo in photos"> <img ng-src="{{photo.images.thumbnail.url}}"/> <p class="title">{{photo.tags}}</p> </li>
+	</ul>
+
+
+
+</body>
+</html>
