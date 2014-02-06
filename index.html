@@ -18,8 +18,8 @@
 					<input class="form-control" type="text" ng-model="searchKeyword" /> 		
 				</div>
 				<div class="form-group">
-					<button class="btn btn-success" type="submit">Find</button>
-					<span class="search-message">photos of {{searchKeyword}}</span> 
+					<button class="btn btn-success" type="submit" ng-click="search()">Find</button>
+					<span class="search-message">photos tagged by {{searchKeyword}}</span> 					
 				</div>
 			</form>			
 		</div>
@@ -28,9 +28,9 @@
 	<div class="container">
 		<p class="lead">Instagram Search</p>	
 		<ul class="list-unstyled list-inline">
-			<li ng-repeat="photo in photos"> 
+			<li ng-repeat="photo in photos | filter: searchKeyword"> 
 				<img ng-src="{{photo.images.thumbnail.url}}" class="img-circle" /> 
-				<!--<p class="title">{{photo.tags}}</p>---> 
+				<span class="title" ng-repeat="tag in photos">{{photo.tags[$index]}} </span>  
 			</li>
 		</ul>
 	</div>
