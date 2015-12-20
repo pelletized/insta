@@ -7,35 +7,49 @@ insta.config(['$httpProvider', function($httpProvider) {
 	}
 ]);
 
-function AppController($scope, $http) {
-	'use strict';	
-	
+function AppController($scope, $http, $window) {
+	'use strict';
+
 	var clientId = "1ff71fd8d0ef4b3ea058f93ee4852154";
-		
+
 	//on load
 	$scope.onload = function() {
-		$http.jsonp('https://api.instagram.com/v1/media/popular?client_id=' + clientId + '&callback=JSON_CALLBACK').success(function (data) {						
-					$scope.photos = data.data;	
+		$http.jsonp('https://api.instagram.com/v1/media/popular?client_id=' + clientId + '&callback=JSON_CALLBACK').success(function (data) {
+					$scope.photos = data.data;
 					//var index = $scope.photos.indexOf(tags);
 					//$scope.created = $scope.photos.created_time;
-				
+
+					/*
 					for (var i = 0; i < $scope.photos.length; i++) {
-						console.log($scope.photos[i].tags);
+						//console.log($scope.photos[i].tags);
 					}
-				
+					*/
 				//console.log($scope.created);
-			});		
+				//console.log($scope.photos);
+			});
 	};
-	
-	//search 
+
+	//search
 	$scope.search = function() {
-		$http.jsonp('https://api.instagram.com/v1/tags/' + $scope.searchKeyword + '/media/recent?client_id=' + clientId +'&callback=JSON_CALLBACK').success(function (data) {						
-				$scope.photos = data.data;	
+		$http.jsonp('https://api.instagram.com/v1/tags/' + $scope.searchKeyword + '/media/recent?client_id=' + clientId +'&callback=JSON_CALLBACK').success(function (data) {
+				$scope.photos = data.data;
 			//$scope.tags = data.data.tags;
-			
+
 			//console.log($scope.tags);
-		});	
+		});
 	};
-	
+
+	$scope.searchTag = function(tag) {
+		$http.jsonp('https://api.instagram.com/v1/tags/' + tag + '/media/recent?client_id=' + clientId +'&callback=JSON_CALLBACK').success(function (data) {
+				$scope.photos = data.data;
+				$scope.searchKeyword = tag;
+			});
+		};
+
+		$scope.openPhoto = function(link) {
+			$window.open(link);
+		};
+
+
 
 }
